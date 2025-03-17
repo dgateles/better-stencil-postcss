@@ -33,13 +33,15 @@ export function postcss(opts: d.PluginOptions = {}): d.Plugin {
               return null;
             }
             try {
-              // Tenta carregar o plugin via require e aplicá-lo com as opções
-              const plugin = require(pluginName);
-              if (typeof plugin === 'function') {
-                return plugin(pluginOptions);
+              // Tenta carregar o plugin via require e aplicá-lo com as opções,
+              // verificando se há export default
+              const loadedPlugin = require(pluginName);
+              const pluginFn = typeof loadedPlugin === 'function' ? loadedPlugin : loadedPlugin.default;
+              if (typeof pluginFn === 'function') {
+                return pluginFn(pluginOptions);
               }
               // Se não for função, assume que já é um plugin configurado
-              return plugin;
+              return loadedPlugin;
             } catch (e) {
               // Em caso de erro, adiciona uma mensagem diagnóstica e ignora o plugin
               context.diagnostics.push({

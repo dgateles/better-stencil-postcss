@@ -101,7 +101,7 @@ export function postcss(opts: d.PluginOptions = {}): d.Plugin {
           })
           .catch((err: any) => {
             loadDiagnostic(context, err, fileName);
-            results.code = `/** postcss error${err && err.message ? ': ' + err.message : ''} **/`;
+            results.code = `/**  postcss error${err && err.message ? ': ' + err.message : ''}  **/`;
             resolve(results);
           });
       });

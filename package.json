@@ -1,6 +1,6 @@
 {
   "name": "better-stencil-postcss",
-  "version": "2.2.3",
+  "version": "2.2.4",
   "license": "MIT",
   "main": "dist/index.cjs.js",
   "module": "dist/index.js",

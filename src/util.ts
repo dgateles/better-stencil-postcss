@@ -2,7 +2,7 @@ import type * as d from './declarations';
 import * as path from 'path';
 
 export function usePlugin(fileName: string) {
-  return /(\.css|\.pcss|\.postcss)$/i.test(fileName);
+  return /(\.css|\.pcss|\.postcss|\.scss)$/i.test(fileName);
 }
 
 export function getRenderOptions(opts: d.PluginOptions, sourceText: string, context: d.PluginCtx) {

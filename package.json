@@ -1,6 +1,6 @@
 {
   "name": "@stencil-community/postcss",
-  "version": "2.2.0",
+  "version": "2.2.1",
   "license": "MIT",
   "main": "dist/index.cjs.js",
   "module": "dist/index.js",
@@ -24,7 +24,7 @@
     "test.watch": "jest --watch"
   },
   "dependencies": {
-    "postcss": "~8.4.27"
+    "postcss": "^8.5.3"
   },
   "peerDependencies": {
     "@stencil/core": ">=2.0.0 || >=3.0.0 || >=4.0.0"

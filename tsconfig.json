@@ -18,7 +18,8 @@
     "outDir": "dist",
     "pretty": true,
     "removeComments": false,
-    "target": "es2017"
+    "target": "es2017",
+    "skipLibCheck": true
   },
   "files": [
     "src/index.ts"

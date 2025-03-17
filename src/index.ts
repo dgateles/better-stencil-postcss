@@ -64,7 +64,7 @@ export function postcss(opts: d.PluginOptions = {}): d.Plugin {
       }
 
       return new Promise<d.PluginTransformResults>((resolve) => {
-        postCss(plugins)
+        postCss(plugins as postCss.AcceptedPlugin[])
           .process(renderOpts.data, {
             from: fileName,
           })

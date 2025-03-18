@@ -1,6 +1,6 @@
 {
   "name": "better-stencil-postcss",
-  "version": "2.2.7-1",
+  "version": "2.2.7-2",
   "license": "MIT",
   "main": "dist/index.cjs.js",
   "module": "dist/index.js",
@@ -44,7 +44,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/dgateles/stencil-postcss.git"
+    "url": "git+https://github.com/dgateles/better-stencil-postcss.git"
   },
   "author": "Ionic Team",
   "homepage": "https://stenciljs.com/",

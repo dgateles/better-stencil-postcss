@@ -20,7 +20,7 @@ Next, in your project’s stencil.config.ts file, import the plugin and add it t
 
 `npm install autoprefixer @types/autoprefixer --save-dev`
 
-This plugin requires Node.js 14 or higher. For older Node versions, please refer to the 1.x release.
+This plugin requires Node.js 20 or higher. For older Node versions, please refer to the 1.x release.
 
 *stencil.config.ts*
 ```js
@@ -87,8 +87,6 @@ To use Tailwind CSS v4 with this plugin, install Tailwind v4 and configure your 
 @import 'tailwindcss/index.css';
 @import 'tailwindcss/utilities.css';
 ```
-
-Make sure your Sass compiler (or equivalent) is configured to include the node_modules directory (via includePaths or by using an absolute path) so that it can find the Tailwind files.
 
 Contributing
 

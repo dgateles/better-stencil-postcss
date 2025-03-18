@@ -33,14 +33,20 @@ export function postcss(opts: d.PluginOptions = {}): d.Plugin {
               return null;
             }
             try {
-              // Tenta carregar o plugin via require e, se o módulo for ESModule, utiliza a propriedade default.
+              // Tenta carregar o plugin via require
               const loadedPlugin = require(pluginName);
+              // Se o módulo exporta via ESModule, utiliza a propriedade default; caso contrário, usa o módulo diretamente
               const pluginFn = loadedPlugin && loadedPlugin.__esModule ? loadedPlugin.default : loadedPlugin;
               if (typeof pluginFn === 'function') {
-                return pluginFn(pluginOptions);
+                // Chama o plugin com as opções e valida se o objeto retornado possui a propriedade postcssPlugin
+                const pluginObj = pluginFn(pluginOptions);
+                if (!pluginObj || !pluginObj.postcssPlugin) {
+                  throw new Error(`O plugin ${pluginName} não retornou um objeto PostCSS válido.`);
+                }
+                return pluginObj;
               }
               // Se não for função, assume que já é um plugin configurado
-              return loadedPlugin;
+              return pluginFn;
             } catch (e: any) {
               // Em caso de erro, adiciona uma mensagem diagnóstica e ignora o plugin
               context.diagnostics.push({

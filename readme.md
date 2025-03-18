@@ -1,65 +1,67 @@
-# @stencil-community/postcss
+# better-stencil-postcss
 
-This package is used in order to integrate with postcss and all of its plugins.
+This package is used to integrate PostCSS and all its plugins with Stencil projects.
 
-First, npm install within the project:
+**Compatible with Tailwind CSS v4**  
+Our plugin now supports Tailwind CSS v4. To use it, install Tailwind v4 and import the styles as follows:
 
-```
-npm install @stencil-community/postcss --save-dev
-```
-
-Next, within the project's `stencil.config.ts` file, import the plugin and add
-it to the `plugins` config. In the example below we're using the `autoprefixer` postcss plugin, so you'll also have to run:
-
-```
-npm install autoprefixer @types/autoprefixer --save-dev
+```scss
+@import 'tailwindcss/index.css';
+@import 'tailwindcss/utilities.css';
 ```
 
-This plugin requires Node.js 14 or higher. For older Node versions, see the 1.x release.
+## Installation
 
-#### stencil.config.ts
-```ts
+First, run the following command in your project:
+
+`npm install better-stencil-postcss --save-dev`
+
+Next, in your project’s stencil.config.ts file, import the plugin and add it to the plugins configuration. In the example below, we’re using the autoprefixer PostCSS plugin, so you’ll also need to install:
+
+`npm install autoprefixer @types/autoprefixer --save-dev`
+
+This plugin requires Node.js 14 or higher. For older Node versions, please refer to the 1.x release.
+
+*stencil.config.ts*
+```js
 import { Config } from '@stencil/core';
-import { postcss } from '@stencil-community/postcss';
+import { postcss } from 'better-stencil-postcss';
 import autoprefixer from 'autoprefixer';
 
 export const config: Config = {
   plugins: [
     postcss({
-      plugins: [autoprefixer()]
+      plugins: {
+        autoprefixer: {},
+        // You can add other PostCSS plugins here, e.g.:
+        // "@tailwindcss/postcss": {}
+      }
     })
   ]
 };
 ```
-
-During development, this plugin will use postcss to process any plugins you may
-have passed along.
+During development, this plugin will use PostCSS to process any plugins you pass along.
 
 ## Options
 
-Postcss has an ecosystem of plugins itself (a plugin for a plugin if you will).
-For our example, we're using the autoprefixer plugin, and configuring its
-options. Note, you can pass any valid autoprefixer option.
-
+PostCSS has a robust ecosystem of plugins (a plugin for a plugin, if you will). In our example, we’re using the autoprefixer plugin and configuring its options. You can pass any valid autoprefixer option.
 ```js
 exports.config = {
   plugins: [
     postcss({
-      plugins: [
-        autoprefixer({
+      plugins: {
+        autoprefixer: {
           browsers: ['last 6 versions'],
           cascade: false
-        })
-      ]
+        }
+      }
     })
   ]
 };
 ```
+## Inject Global Paths
 
-### Inject Globals Paths
-
-The `injectGlobalPaths` config is an array of paths that automatically get added as `@import` declarations to all components. This can be useful to inject variables, mixins and functions to override defaults of external collections. Relative paths within `injectGlobalPaths` should be relative to the `stencil.config.js` file.
-
+The injectGlobalPaths option is an array of paths that are automatically added as @import declarations to all components. This is useful for injecting variables, mixins, and functions to override defaults from external libraries. Relative paths in injectGlobalPaths should be relative to your stencil.config.ts file.
 ```js
 exports.config = {
   plugins: [
@@ -72,24 +74,22 @@ exports.config = {
   ]
 };
 ```
+Note: Each of these files is added to every component, so they should not contain CSS that generates output (to avoid duplication). Instead, injectGlobalPaths should be used only for Sass variables, mixins, and functions.
 
-Note that each of these files are always added to each component, so in most cases they shouldn't contain CSS because it'll get duplicated in each component. Instead, `injectGlobalPaths` should only be used for Sass variables, mixins and functions, but not contain any CSS.
+## Valid File Extensions
 
-## Valid file extensions
+This plugin processes files with the following extensions: .css, .pcss, .postcss, .scss, and .sass.
 
-This plugin will only transpile files whose extensions are `.css`, `.pcss`, or `.postcss`.
+## Importing Tailwind CSS v4
 
-## Related
+To use Tailwind CSS v4 with this plugin, install Tailwind v4 and configure your global styles file as follows:
+```css
+@import 'tailwindcss/index.css';
+@import 'tailwindcss/utilities.css';
+```
 
-* [postcss](https://github.com/postcss/postcss)
-* [autoprefixer](https://github.com/postcss/autoprefixer)
-* [Stencil](https://stenciljs.com/)
-* [Stencil Worldwide Slack](https://stencil-worldwide.slack.com)
-* [Ionic Components](https://www.npmjs.com/package/@ionic/core)
-* [Ionicons](http://ionicons.com/)
+Make sure your Sass compiler (or equivalent) is configured to include the node_modules directory (via includePaths or by using an absolute path) so that it can find the Tailwind files.
 
-## Contributing
+Contributing
 
-Please see our [Contributor Code of
-Conduct](https://github.com/ionic-team/ionic/blob/master/CODE_OF_CONDUCT.md) for
-information on our rules of conduct.
+Please see our Contributor Code of Conduct for information on our rules of conduct.
